@@ -3,9 +3,12 @@
     <ui:VisualElement name="UniversalViewRoot" style="flex-grow: 1; justify-content: flex-end;">
         <ui:VisualElement name="UniversalViewContainer" style="height: 33%; padding-left: 10px; padding-right: 10px; padding-top: 10px; padding-bottom: 10px; background-color: rgb(255, 255, 255);">
             <ui:Label text="Label" display-tooltip-when-elided="true" name="UniversalViewCharacterName" style="white-space: normal;" />
-            <ui:Label text="Label" display-tooltip-when-elided="true" name="UniversalViewText" style="white-space: normal;" />
-            <ui:VisualElement name="UniversalViewButtonContainer" style="align-items: flex-start; flex-direction: row;">
+            <ui:Label text="Label" display-tooltip-when-elided="true" name="UniversalViewText" style="white-space: normal; flex-grow: 1;" />
+            <ui:VisualElement name="UniversalViewButtonContainer" style="align-items: flex-start; flex-direction: row; flex-grow: 0;">
                 <ui:Button text="Button" display-tooltip-when-elided="true" style="align-items: flex-start;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="UniversalViewContinueButtonContainer" style="align-items: flex-start; flex-direction: row-reverse; flex-grow: 0;">
+                <ui:Button text="Button" display-tooltip-when-elided="true" name="UniversalViewConintueButton" style="align-items: flex-start;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

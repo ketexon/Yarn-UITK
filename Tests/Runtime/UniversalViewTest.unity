@@ -493,9 +493,14 @@ MonoBehaviour:
       m_Calls: []
   typewriterEffectSpeed: 50
   continueButtonSelector:
-    Name: 
+    Name: UniversalViewConintueButton
     Classes: []
     PseudoSelectorMask: 0
+  continueButtonContainerSelector:
+    Name: UniversalViewContinueButtonContainer
+    Classes: []
+    PseudoSelectorMask: 0
+  continueButtonContainerDisabledClass: ContinueButtonDisabled
   holdTime: 1
   autoAdvance: 0
 --- !u!114 &1285961349

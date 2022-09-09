@@ -140,6 +140,16 @@ namespace Ketexon.YarnUITK
         internal BasicVisualElementSelector continueButtonSelector;
         internal Button continueButton = null;
 
+        [SerializeField]
+        internal BasicVisualElementSelector continueButtonContainerSelector;
+        internal VisualElement continueButtonContainer = null;
+
+        [SerializeField]
+        internal string continueButtonContainerDisabledClass = "";
+
+        [SerializeField]
+        internal bool continueOnRootClick = true;
+
         /// <summary>
         /// The amount of time to wait after any line
         /// </summary>
@@ -207,6 +217,16 @@ namespace Ketexon.YarnUITK
             optionContainer = optionContainerSelector.Builder<VisualElement>(root).First();
 
             continueButton = continueButtonSelector.Builder<Button>(root).First();
+            continueButtonContainer = continueButtonContainerSelector.Builder<VisualElement>(root).First();
+            if (continueButton != null)
+            {
+                continueButton.clicked += OnContinueClicked;
+            }
+
+            if (continueOnRootClick)
+            {
+                viewRoot.RegisterCallback<MouseDownEvent>(_ => OnContinueClicked());
+            }
         }
 
         void Reset()
@@ -268,6 +288,7 @@ namespace Ketexon.YarnUITK
         /// <inheritdoc/>
         public override void RunLine(LocalizedLine dialogueLine, Action onDialogueLineFinished)
         {
+            EnableContinueButton();
             lastSeenLine = dialogueLine;
             // Stop any coroutines currently running on this line view (for
             // example, any other RunLine that might be running)
@@ -378,6 +399,8 @@ namespace Ketexon.YarnUITK
 
         public override void RunOptions(DialogueOption[] dialogueOptions, Action<int> onOptionSelected)
         {
+            DisableContinueButton();
+
             this.onOptionSelected = onOptionSelected;
 
             ClearOptions();
@@ -510,6 +533,16 @@ namespace Ketexon.YarnUITK
             // if we'd received a signal from any other part of the game (for
             // example, if a DialogueAdvanceInput had signalled us.)
             UserRequestedViewAdvancement();
+        }
+
+        void EnableContinueButton()
+        {
+            continueButtonContainer?.RemoveFromClassList(continueButtonContainerDisabledClass);
+        }
+
+        void DisableContinueButton()
+        {
+            continueButtonContainer?.AddToClassList(continueButtonContainerDisabledClass);
         }
     }
 
