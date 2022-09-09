@@ -30,6 +30,9 @@ namespace Ketexon.YarnUITK
         internal Label lastCharacterNameLabel = null;
 
         [SerializeField]
+        internal string lastCharacterNameLabelEmptyClass = "";
+
+        [SerializeField]
         internal BasicVisualElementSelector lastLineLabelSelector;
         internal Label lastLineLabel = null;
 
@@ -98,7 +101,7 @@ namespace Ketexon.YarnUITK
             }
             if(lastCharacterNameLabel != null)
             {
-                lastCharacterNameLabel.text = lastSeenLine.CharacterName ?? "";
+                SetLastCharacterNameLabel(lastSeenLine.CharacterName);
             }
 
             for(int i = 0; i < dialogueOptions.Length; i++)
@@ -150,6 +153,20 @@ namespace Ketexon.YarnUITK
         void PresentRoot()
         {
             viewRoot.AddToClassList(viewRootPresentedClass);
+        }
+
+        void SetLastCharacterNameLabel(string name)
+        {
+            if (name != null && name.Length > 0)
+            {
+                lastCharacterNameLabel.text = name;
+                lastCharacterNameLabel.RemoveFromClassList(lastCharacterNameLabelEmptyClass);
+            }
+            else
+            {
+                lastCharacterNameLabel.text = "";
+                lastCharacterNameLabel.AddToClassList(lastCharacterNameLabelEmptyClass);
+            }
         }
     }
 }

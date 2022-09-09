@@ -28,3 +28,7 @@
 .Disabled {
     opacity: 0;
 }
+
+.EmptyCharacterName {
+    display: none;
+}

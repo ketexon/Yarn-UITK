@@ -471,7 +471,6 @@ MonoBehaviour:
   viewRootEnabledClass: Enabled
   viewRootPresentedClass: Presented
   viewRootDisabledClass: Disabled
-  transitionTime: 0
   lineLabelSelector:
     Name: UniversalViewText
     Classes: []
@@ -481,6 +480,7 @@ MonoBehaviour:
     Name: UniversalViewCharacterName
     Classes: []
     PseudoSelectorMask: 0
+  characterNameLabelEmptyClass: EmptyCharacterName
   optionContainerSelector:
     Name: UniversalViewButtonContainer
     Classes: []

@@ -65,6 +65,9 @@ namespace Ketexon.YarnUITK
         internal BasicVisualElementSelector characterNameLabelSelector;
         internal Label characterNameLabel = null;
 
+        [SerializeField]
+        internal string characterNameLabelEmptyClass = "";
+
         /// <summary>
         /// Controls whether the text of <see cref="lineText"/> should be
         /// gradually revealed over time.
@@ -242,7 +245,7 @@ namespace Ketexon.YarnUITK
             }
             else
             {
-                characterNameLabel.text = dialogueLine.CharacterName;
+                SetCharacterNameLabel(dialogueLine.CharacterName);
                 lineLabelFullText = dialogueLine.TextWithoutCharacterName.Text;
             }
 
@@ -272,7 +275,7 @@ namespace Ketexon.YarnUITK
 
                 if (characterNameLabel != null)
                 {
-                    characterNameLabel.text = dialogueLine.CharacterName;
+                    SetCharacterNameLabel(dialogueLine.CharacterName);
                     lineLabelFullText = dialogueLine.TextWithoutCharacterName.Text;
                 }
                 else
@@ -401,6 +404,20 @@ namespace Ketexon.YarnUITK
             // if we'd received a signal from any other part of the game (for
             // example, if a DialogueAdvanceInput had signalled us.)
             UserRequestedViewAdvancement();
+        }
+
+        void SetCharacterNameLabel(string name)
+        {
+            if (name != null && name.Length > 0)
+            {
+                characterNameLabel.text = name;
+                characterNameLabel.RemoveFromClassList(characterNameLabelEmptyClass);
+            }
+            else
+            {
+                characterNameLabel.text = "";
+                characterNameLabel.AddToClassList(characterNameLabelEmptyClass);
+            }
         }
     }
 

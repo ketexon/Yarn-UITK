@@ -30,9 +30,6 @@ namespace Ketexon.YarnUITK
         [SerializeField]
         internal string viewRootDisabledClass = "";
 
-        [SerializeField]
-        internal float transitionTime = 0.0f;
-
 
         [SerializeField]
         internal BasicVisualElementSelector lineLabelSelector;
@@ -68,6 +65,9 @@ namespace Ketexon.YarnUITK
         [SerializeField]
         internal BasicVisualElementSelector characterNameLabelSelector;
         internal Label characterNameLabel = null;
+
+        [SerializeField]
+        internal string characterNameLabelEmptyClass = "";
 
         [SerializeField]
         internal BasicVisualElementSelector optionContainerSelector;
@@ -258,7 +258,7 @@ namespace Ketexon.YarnUITK
             }
             else
             {
-                characterNameLabel.text = dialogueLine.CharacterName;
+                SetCharacterNameLabel(dialogueLine.CharacterName);
                 lineLabelFullText = dialogueLine.TextWithoutCharacterName.Text;
             }
 
@@ -287,7 +287,7 @@ namespace Ketexon.YarnUITK
 
                 if (characterNameLabel != null)
                 {
-                    characterNameLabel.text = dialogueLine.CharacterName;
+                    SetCharacterNameLabel(dialogueLine.CharacterName);
                     lineLabelFullText = dialogueLine.TextWithoutCharacterName.Text;
                 }
                 else
@@ -395,7 +395,7 @@ namespace Ketexon.YarnUITK
             }
             if (characterNameLabel != null)
             {
-                characterNameLabel.text = lastSeenLine.CharacterName ?? "";
+                SetCharacterNameLabel(lastSeenLine.CharacterName ?? "");
             }
 
             for (int i = 0; i < dialogueOptions.Length; i++)
@@ -454,6 +454,20 @@ namespace Ketexon.YarnUITK
         {
             optionContainer.Clear();
             optionButtons.Clear();
+        }
+
+        void SetCharacterNameLabel(string name)
+        {
+            if(name != null && name.Length > 0)
+            {
+                characterNameLabel.text = name;
+                characterNameLabel.RemoveFromClassList(characterNameLabelEmptyClass);
+            }
+            else
+            {
+                characterNameLabel.text = "";
+                characterNameLabel.AddToClassList(characterNameLabelEmptyClass);
+            }
         }
 
         /// <inheritdoc/>
