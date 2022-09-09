@@ -50,9 +50,9 @@ namespace Ketexon.YarnUITK
             }
         }
 
-        public readonly string Text;
+        public string Text { get; protected set; }
         public readonly string PlainText = "";
-        public readonly List<Tag> Tags = new List<Tag>();
+        public List<Tag> Tags { get; protected set; } = new List<Tag>();
 
 
         public RichText(string richText)
@@ -180,7 +180,7 @@ namespace Ketexon.YarnUITK
             }
         }
 
-        public RichText Substring(int startIndex = 0, int length = -1)
+        public RichText Substring(int startIndex = 0, int length = -1, List<Tag> extraTags = null)
         {
             var endIndex = default(int);
             if (length < 0)
@@ -290,6 +290,72 @@ namespace Ketexon.YarnUITK
                 while (startedTags.TryPeek(out topStartedTag) && topStartedTag.EndIndex == i)
                 {
                     outText += Tag.Escape(topStartedTag.EndText);
+                    activeTags.Remove(startedTags.Pop());
+                }
+
+                outText += PlainText[i];
+            }
+            foreach (var tag in startedTags)
+            {
+                outText += tag.EndText;
+            }
+            return outText;
+        }
+
+        public void AddTag(Tag tag)
+        {
+            Tags.Add(tag);
+            Text = GenerateText();
+        }
+
+        public string GenerateText(
+            List<Tag> extraTags = null,
+            List<Tag> removedTags = null,
+            System.Func<Tag, Tag> tagMap = null
+        )
+        {
+            string outText = "";
+            List<Tag> activeTags = new List<Tag>(Tags);
+            if(extraTags != null)
+            {
+                activeTags.AddRange(extraTags);
+            }
+            if(removedTags != null)
+            {
+                activeTags.RemoveAll(tag => removedTags.Contains(tag));
+            }
+            if(tagMap != null)
+            {
+                for(int i = 0; i < activeTags.Count; i++)
+                {
+                    activeTags[i] = tagMap(activeTags[i]);
+                }
+            }
+            Stack<Tag> startedTags = new Stack<Tag>();
+
+            for (int i = 0; i < PlainText.Length; i++)
+            {
+                var startTagsAtIndex = new List<Tag>();
+                foreach (var tag in activeTags)
+                {
+                    if (tag.StartIndex == i)
+                    {
+                        startTagsAtIndex.Add(tag);
+                    }
+                }
+                startTagsAtIndex.Sort( // shorter end index comes last
+                    (t1, t2) => -Comparer<int>.Default.Compare(t1.EndIndex, t2.EndIndex)
+                );
+                foreach (var tag in startTagsAtIndex)
+                {
+                    //Debug.Log(tag);
+                    outText += tag.StartText;
+                    startedTags.Push(tag);
+                }
+                Tag topStartedTag;
+                while (startedTags.TryPeek(out topStartedTag) && topStartedTag.EndIndex == i)
+                {
+                    outText += topStartedTag.EndText;
                     activeTags.Remove(startedTags.Pop());
                 }
 

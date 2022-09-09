@@ -1,7 +1,8 @@
 {
-    "name": "ketexon.yarn-uitk",
-    "rootNamespace": "Ketexon.YarnUITK",
+    "name": "Ketexon.YarnUITK.Tests",
+    "rootNamespace": "Ketexon.YarnUITK.Tests",
     "references": [
+        "GUID:65cf9f6dc98b09f429d8b80ec6e40c15",
         "GUID:34aa492b82754644eac2f903cd496268"
     ],
     "includePlatforms": [],

@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Container" style="flex-grow: 1; background-color: rgb(255, 255, 255);">
+        <ui:Button text="Button" display-tooltip-when-elided="true" name="Button" class="test-class-button" />
+        <ui:Toggle label="Toggle" name="Checkbox" class="test-class-checkbox" />
+        <ui:Label text="Label" display-tooltip-when-elided="true" name="Label" class="test-class-label" />
+    </ui:VisualElement>
+</ui:UXML>

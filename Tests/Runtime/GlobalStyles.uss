@@ -1,0 +1,30 @@
+.LineViewEnabled {
+}
+
+.LineViewDisabled {
+    opacity: 0;
+}
+
+.LineViewPresented {
+}
+
+.OptionViewButton {
+}
+
+.OptionViewEnabled {
+    opacity: 1;
+}
+
+.OptionViewDisabled {
+    opacity: 0;
+}
+
+.Enabled {
+}
+
+.Presented {
+}
+
+.Disabled {
+    opacity: 0;
+}
